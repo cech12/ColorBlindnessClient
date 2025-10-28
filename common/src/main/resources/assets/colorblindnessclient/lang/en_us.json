@@ -1,10 +1,11 @@
 {
-  "effect.colorblindnessclient.achromatomaly": "Achromatomaly",
-  "effect.colorblindnessclient.achromatopsia": "Achromatopsia",
-  "effect.colorblindnessclient.deuteranomaly": "Deuteranomaly",
-  "effect.colorblindnessclient.deuteranopia": "Deuteranopia",
-  "effect.colorblindnessclient.protanomaly": "Protanomaly",
-  "effect.colorblindnessclient.protanopia": "Protanopia",
-  "effect.colorblindnessclient.tritanomaly": "Tritanomaly",
-  "effect.colorblindnessclient.tritanopia": "Tritanopia"
+  "category.colorblindnessclient.keymappings": "Color Blindness Post Effects",
+  "key.colorblindnessclient.achromatomaly": "Achromatomaly - Color weakness",
+  "key.colorblindnessclient.achromatopsia": "Achromatopsia - Color blindness",
+  "key.colorblindnessclient.deuteranomaly": "Deuteranomaly - Green weakness",
+  "key.colorblindnessclient.deuteranopia": "Deuteranopia - Green blindness",
+  "key.colorblindnessclient.protanomaly": "Protanomaly - Red weakness",
+  "key.colorblindnessclient.protanopia": "Protanopia - Red blindness",
+  "key.colorblindnessclient.tritanomaly": "Tritanomaly - Blue weakness",
+  "key.colorblindnessclient.tritanopia": "Tritanopia - Blue blindness"
 }
