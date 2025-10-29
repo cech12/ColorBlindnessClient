@@ -38,7 +38,7 @@ jobs:
       java-version: 21
       subproject: forge
       title-prefix: forge-
-      curseforge-id: 1372716
+      curseforge-id: 1374758
       game-versions: |
         1.21.1
       release-type: release
@@ -56,7 +56,7 @@ jobs:
       java-version: 21
       subproject: forge
       title-prefix: forge-
-      modrinth-id: CscvWDrj
+      modrinth-id: rciVOhnS
       game-versions: |
         1.21.1
       release-type: release
@@ -74,7 +74,7 @@ jobs:
       java-version: 21
       subproject: neoforge
       title-prefix: neoforge-
-      curseforge-id: 1372716
+      curseforge-id: 1374758
       game-versions: |
         1.21.1
       release-type: release
@@ -92,7 +92,7 @@ jobs:
       java-version: 21
       subproject: neoforge
       title-prefix: neoforge-
-      modrinth-id: CscvWDrj
+      modrinth-id: rciVOhnS
       game-versions: |
         1.21.1
       release-type: release
@@ -110,7 +110,7 @@ jobs:
       java-version: 21
       subproject: fabric
       title-prefix: fabric-
-      curseforge-id: 1372716
+      curseforge-id: 1374758
       game-versions: |
         1.21.1
       release-type: release
@@ -129,7 +129,7 @@ jobs:
       java-version: 21
       subproject: fabric
       title-prefix: fabric-
-      modrinth-id: CscvWDrj
+      modrinth-id: rciVOhnS
       game-versions: |
         1.21.1
       release-type: release
