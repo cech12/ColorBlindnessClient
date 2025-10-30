@@ -1,28 +1,29 @@
 package de.cech12.colorblindnessclient.client;
 
 import com.google.gson.JsonSyntaxException;
+import com.mojang.blaze3d.resource.CrossFrameResourcePool;
 import de.cech12.colorblindnessclient.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.LevelTargetBundle;
 import net.minecraft.client.renderer.PostChain;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-
 public class EffectRendererHelper {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final ResourceLocation ACHROMATOMALY = Constants.id("shaders/post/achromatomaly.json");
-    private static final ResourceLocation ACHROMATOPSIA = Constants.id("shaders/post/achromatopsia.json");
-    private static final ResourceLocation DEUTERANOMALY = Constants.id("shaders/post/deuteranomaly.json");
-    private static final ResourceLocation DEUTERANOPIA = Constants.id("shaders/post/deuteranopia.json");
-    private static final ResourceLocation PROTANOMALY = Constants.id("shaders/post/protanomaly.json");
-    private static final ResourceLocation PROTANOPIA = Constants.id("shaders/post/protanopia.json");
-    private static final ResourceLocation TRITANOMALY = Constants.id("shaders/post/tritanomaly.json");
-    private static final ResourceLocation TRITANOPIA = Constants.id("shaders/post/tritanopia.json");
+    private static final ResourceLocation ACHROMATOMALY = Constants.id("achromatomaly");
+    private static final ResourceLocation ACHROMATOPSIA = Constants.id("achromatopsia");
+    private static final ResourceLocation DEUTERANOMALY = Constants.id("deuteranomaly");
+    private static final ResourceLocation DEUTERANOPIA = Constants.id("deuteranopia");
+    private static final ResourceLocation PROTANOMALY = Constants.id("protanomaly");
+    private static final ResourceLocation PROTANOPIA = Constants.id("protanopia");
+    private static final ResourceLocation TRITANOMALY = Constants.id("tritanomaly");
+    private static final ResourceLocation TRITANOPIA = Constants.id("tritanopia");
+    private static final CrossFrameResourcePool RESOURCE_POOL = new CrossFrameResourcePool(3);
 
     private static PostChain achromatomalyShader;
     private static PostChain achromatopsiaShader;
@@ -32,10 +33,6 @@ public class EffectRendererHelper {
     private static PostChain protanopiaShader;
     private static PostChain tritanomalyShader;
     private static PostChain tritanopiaShader;
-
-    private static int lastWidth = 0;
-    private static int lastHeight = 0;
-    private static PostChain lastShader = null;
 
     /**
      * Should be called by a render event and renders the effect if it is active.
@@ -60,23 +57,15 @@ public class EffectRendererHelper {
                 case TRITANOPIA -> tritanopiaShader;
             };
 
-            if (lastShader != activeShader) {
-                lastShader = activeShader;
-                lastWidth = 0;
-                lastHeight = 0;
+            if (activeShader != null) {
+                activeShader.process(Minecraft.getInstance().getMainRenderTarget(), RESOURCE_POOL);
             }
-            updateShaderGroupSize(activeShader);
-            activeShader.process(renderTickTime);
-            Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
         }
     }
 
     private static PostChain createShaderGroup(ResourceLocation location) {
         try {
-            Minecraft mc = Minecraft.getInstance();
-            return new PostChain(mc.getTextureManager(), mc.getResourceManager(), mc.getMainRenderTarget(), location);
-        } catch (IOException ioexception) {
-            LOGGER.warn("Failed to load shader: {}", location, ioexception);
+            return Minecraft.getInstance().getShaderManager().getPostChain(location, LevelTargetBundle.MAIN_TARGETS);
         } catch (JsonSyntaxException jsonsyntaxexception) {
             LOGGER.warn("Failed to parse shader: {}", location, jsonsyntaxexception);
         }
@@ -107,19 +96,6 @@ public class EffectRendererHelper {
         }
         if (tritanopiaShader == null) {
             tritanopiaShader = createShaderGroup(TRITANOPIA);
-        }
-    }
-
-    private static void updateShaderGroupSize(PostChain shaderGroup) {
-        if (shaderGroup != null) {
-            Minecraft mc = Minecraft.getInstance();
-            int width = mc.getWindow().getWidth();
-            int height = mc.getWindow().getHeight();
-            if (width != lastWidth || height != lastHeight) {
-                lastWidth = width;
-                lastHeight = height;
-                shaderGroup.resize(width, height);
-            }
         }
     }
 

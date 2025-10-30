@@ -1,6 +1,6 @@
 #version 150
 
-uniform sampler2D DiffuseSampler;
+uniform sampler2D InSampler;
 
 in vec2 texCoord;
 in vec2 oneTexel;
@@ -12,7 +12,7 @@ uniform vec3 BlueMatrix;
 out vec4 fragColor;
 
 void main() {
-    vec4 InTexel = texture(DiffuseSampler, texCoord);
+    vec4 InTexel = texture(InSampler, texCoord);
 
     // Color Matrix
     float RedValue = dot(InTexel.rgb, RedMatrix);
