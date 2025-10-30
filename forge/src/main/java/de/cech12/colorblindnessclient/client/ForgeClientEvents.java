@@ -5,8 +5,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.Priority;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @SuppressWarnings("unused")
@@ -19,7 +19,7 @@ public class ForgeClientEvents {
         ColorEffect.buttonPressed();
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
+    @SubscribeEvent(priority = Priority.LOWEST)
     public static void onRender(TickEvent.RenderTickEvent.Post event) {
         if (event == null) {
             return;
