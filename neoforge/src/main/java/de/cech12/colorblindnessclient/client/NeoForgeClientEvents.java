@@ -1,11 +1,13 @@
 package de.cech12.colorblindnessclient.client;
 
+import de.cech12.colorblindnessclient.Constants;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RenderFrameEvent;
 
@@ -30,6 +32,11 @@ public class NeoForgeClientEvents {
             return;
         }
         EffectRendererHelper.renderColorBlindnessEffect(event.getPartialTick().getGameTimeDeltaTicks());
+    }
+
+    @SubscribeEvent
+    public static void onRegisterCommands(RegisterClientCommandsEvent event) {
+        event.getDispatcher().register(Constants.getCommands());
     }
 
 }

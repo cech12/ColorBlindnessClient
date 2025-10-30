@@ -1,7 +1,9 @@
 package de.cech12.colorblindnessclient.client;
 
+import de.cech12.colorblindnessclient.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,6 +25,11 @@ public class ForgeClientEvents {
             return;
         }
         EffectRendererHelper.renderColorBlindnessEffect(event.getTimer().getGameTimeDeltaTicks());
+    }
+
+    @SubscribeEvent
+    public static void onRegisterCommands(RegisterClientCommandsEvent event) {
+        event.getDispatcher().register(Constants.getCommands());
     }
 
 }

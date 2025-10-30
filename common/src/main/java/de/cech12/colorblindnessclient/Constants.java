@@ -1,5 +1,7 @@
 package de.cech12.colorblindnessclient;
 
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import de.cech12.colorblindnessclient.client.ColorEffect;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
@@ -40,6 +42,21 @@ public class Constants {
         } else {
             ACTIVE_EFFECT = effect;
         }
+    }
+
+    public static <S> LiteralArgumentBuilder<S> getCommands() {
+        var builder = LiteralArgumentBuilder.literal("cb")
+                .then(LiteralArgumentBuilder.literal("clear").executes(ctx -> {
+                    ACTIVE_EFFECT = null;
+                    return Command.SINGLE_SUCCESS;
+                }));
+        for (ColorEffect effect : ColorEffect.values()) {
+            builder.then(LiteralArgumentBuilder.literal(effect.name().toLowerCase()).executes(ctx -> {
+                ACTIVE_EFFECT = effect;
+                return Command.SINGLE_SUCCESS;
+            }));
+        }
+        return (LiteralArgumentBuilder<S>) builder;
     }
 
 }

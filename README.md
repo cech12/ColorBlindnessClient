@@ -28,4 +28,19 @@ The Fabric / Quilt version needs the following mods:
 
 ## In-game usage
 
-TODO!!!
+You can define a key in the vanilla Keybinding menu for each colorblindness effect which can toggle the effect.
+
+OR
+
+Type the following line to enable you the Achromatopsia effect.
+
+```
+/cb achromatopsia
+```
+
+And the following command can clear the effect.
+
+```
+/cb clear
+```
+
