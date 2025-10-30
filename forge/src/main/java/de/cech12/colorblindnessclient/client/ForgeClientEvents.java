@@ -4,13 +4,14 @@ import de.cech12.colorblindnessclient.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.listener.Priority;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @SuppressWarnings("unused")
-@Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(value = Dist.CLIENT)
 public class ForgeClientEvents {
 
     @SubscribeEvent
@@ -24,12 +25,17 @@ public class ForgeClientEvents {
         if (event == null) {
             return;
         }
-        EffectRendererHelper.renderColorBlindnessEffect(event.getTimer().getGameTimeDeltaTicks());
+        EffectRendererHelper.renderColorBlindnessEffect(event.timer().getGameTimeDeltaTicks());
     }
 
     @SubscribeEvent
     public static void onRegisterCommands(RegisterClientCommandsEvent event) {
         event.getDispatcher().register(Constants.getCommands());
+    }
+
+    @SubscribeEvent
+    public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
+        ColorBlindnessKeyMappings.registerAll(event::register);
     }
 
 }

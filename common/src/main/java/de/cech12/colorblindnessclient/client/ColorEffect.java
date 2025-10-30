@@ -36,12 +36,12 @@ public enum ColorEffect {
         return "key." + Constants.MOD_ID + "." + name().toLowerCase();
     }
 
-    public KeyMapping generateKeyMapping() {
+    public KeyMapping generateKeyMapping(KeyMapping.Category category) {
         return new KeyMapping(
                 this.getKeyTranslatable(),
                 InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_UNKNOWN,
-                Constants.KEYMAPPING_CATEGORY
+                category
         );
     }
 
