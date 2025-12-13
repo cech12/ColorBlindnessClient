@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [this versioning scheme](https://gist.github.com/cech12/69319028e88c50349a6b044000a6607b).
 
+## [1.21.11-1.5.0.0] - 2025-12-13
+### Changed
+- updated to Minecraft 1.21.11 (Fabric 0.139.5+1.21.11, NeoForge 21.11.6-beta, Forge 61.0.2)
+
 ## [1.21.10-1.4.0.0] - 2025-10-30
 ### Changed
 - updated to Minecraft 1.21.10 (Fabric 0.136.0+1.21.10, NeoForge 21.10.38-beta, Forge 60.0.11)
