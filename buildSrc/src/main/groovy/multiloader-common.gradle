@@ -39,10 +39,6 @@ repositories {
         )
         filter { includeGroup('org.parchmentmc.data') }
     }
-    maven {
-        name = 'BlameJared'
-        url = 'https://maven.blamejared.com'
-    }
 }
 
 // Declare capabilities on the outgoing configurations.
