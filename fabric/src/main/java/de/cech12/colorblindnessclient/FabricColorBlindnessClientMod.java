@@ -5,13 +5,13 @@ import de.cech12.colorblindnessclient.client.ColorEffect;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 
 public class FabricColorBlindnessClientMod implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ColorBlindnessKeyMappings.registerAll(KeyBindingHelper::registerKeyBinding);
+        ColorBlindnessKeyMappings.registerAll(KeyMappingHelper::registerKeyMapping);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null) return;
