@@ -4,6 +4,7 @@ import de.cech12.colorblindnessclient.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.listener.Priority;
@@ -36,6 +37,14 @@ public class ForgeClientEvents {
     @SubscribeEvent
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         ColorBlindnessKeyMappings.registerAll(event::register);
+    }
+
+    @SubscribeEvent
+    public static void addReloadListener(RegisterClientReloadListenersEvent event) {
+        if (event == null) {
+            return;
+        }
+        event.registerReloadListener(new ColorblindnessReloadListener());
     }
 
 }

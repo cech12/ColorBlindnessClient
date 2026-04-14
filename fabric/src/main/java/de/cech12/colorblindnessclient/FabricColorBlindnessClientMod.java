@@ -2,10 +2,13 @@ package de.cech12.colorblindnessclient;
 
 import de.cech12.colorblindnessclient.client.ColorBlindnessKeyMappings;
 import de.cech12.colorblindnessclient.client.ColorEffect;
+import de.cech12.colorblindnessclient.client.ColorblindnessReloadListener;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.minecraft.server.packs.PackType;
 
 public class FabricColorBlindnessClientMod implements ClientModInitializer {
 
@@ -20,6 +23,8 @@ public class FabricColorBlindnessClientMod implements ClientModInitializer {
 
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, context) ->
                 dispatcher.register(Constants.getCommands()));
+
+        ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(Constants.id("reload"), new ColorblindnessReloadListener());
     }
 
 }
