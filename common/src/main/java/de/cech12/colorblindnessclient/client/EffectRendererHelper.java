@@ -34,6 +34,10 @@ public class EffectRendererHelper {
     private static PostChain tritanomalyShader;
     private static PostChain tritanopiaShader;
 
+    private EffectRendererHelper() {
+        // prevent instantiation
+    }
+
     /**
      * Should be called by a render event and renders the effect if it is active.
      * @param renderTickTime render tick time
@@ -44,8 +48,6 @@ public class EffectRendererHelper {
         }
         LocalPlayer player = Minecraft.getInstance().player;
         if (player != null) {
-            makeColorShaders();
-
             PostChain activeShader = switch (Constants.getActiveEffect()) {
                 case ACHROMATOMALY -> achromatomalyShader;
                 case ACHROMATOPSIA -> achromatopsiaShader;
@@ -57,8 +59,12 @@ public class EffectRendererHelper {
                 case TRITANOPIA -> tritanopiaShader;
             };
 
-            if (activeShader != null) {
-                activeShader.process(Minecraft.getInstance().getMainRenderTarget(), RESOURCE_POOL);
+            try {
+                if (activeShader != null) {
+                    activeShader.process(Minecraft.getInstance().getMainRenderTarget(), RESOURCE_POOL);
+                }
+            } catch (IllegalStateException ex) {
+                Constants.LOG.warn("Colorblindness shader failed to render, skipping rendering this frame.", ex);
             }
         }
     }
@@ -70,6 +76,21 @@ public class EffectRendererHelper {
             LOGGER.warn("Failed to parse shader: {}", location, jsonsyntaxexception);
         }
         return null;
+    }
+
+    public static void unloadShaders() {
+        achromatomalyShader = null;
+        achromatopsiaShader = null;
+        deuteranomalyShader = null;
+        deuteranopiaShader = null;
+        protanomalyShader = null;
+        protanopiaShader = null;
+        tritanomalyShader = null;
+        tritanopiaShader = null;
+    }
+
+    public static void resetShaders() {
+        makeColorShaders();
     }
 
     private static void makeColorShaders() {

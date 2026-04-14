@@ -8,6 +8,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RenderFrameEvent;
 
@@ -37,6 +38,14 @@ public class NeoForgeClientEvents {
     @SubscribeEvent
     public static void onRegisterCommands(RegisterClientCommandsEvent event) {
         event.getDispatcher().register(Constants.getCommands());
+    }
+
+    @SubscribeEvent
+    public static void addReloadListener(RegisterClientReloadListenersEvent event) {
+        if (event == null) {
+            return;
+        }
+        event.registerReloadListener(new ColorblindnessReloadListener());
     }
 
 }
