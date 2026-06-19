@@ -4,7 +4,6 @@ import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.resource.GraphicsResourceAllocator;
 import de.cech12.colorblindnessclient.Constants;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LevelTargetBundle;
 import net.minecraft.client.renderer.PostChain;
 import net.minecraft.resources.Identifier;
@@ -40,32 +39,34 @@ public class EffectRendererHelper {
 
     /**
      * Should be called by a render event and renders the effect if it is active.
-     * @param renderTickTime render tick time
      */
-    public static void renderColorBlindnessEffect(float renderTickTime) {
+    public static void renderColorBlindnessEffect() {
         if (Constants.getActiveEffect() == null) {
             return;
         }
-        LocalPlayer player = Minecraft.getInstance().player;
-        if (player != null) {
-            PostChain activeShader = switch (Constants.getActiveEffect()) {
-                case ACHROMATOMALY -> achromatomalyShader;
-                case ACHROMATOPSIA -> achromatopsiaShader;
-                case DEUTERANOMALY -> deuteranomalyShader;
-                case DEUTERANOPIA -> deuteranopiaShader;
-                case PROTANOMALY -> protanomalyShader;
-                case PROTANOPIA -> protanopiaShader;
-                case TRITANOMALY -> tritanomalyShader;
-                case TRITANOPIA -> tritanopiaShader;
-            };
 
-            try {
-                if (activeShader != null) {
-                    activeShader.process(Minecraft.getInstance().getMainRenderTarget(), ALLOCATOR);
-                }
-            } catch (IllegalStateException ex) {
-                Constants.LOG.warn("Colorblindness shader failed to render, skipping rendering this frame.", ex);
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null) {
+            return;
+        }
+
+        PostChain activeShader = switch (Constants.getActiveEffect()) {
+            case ACHROMATOMALY -> achromatomalyShader;
+            case ACHROMATOPSIA -> achromatopsiaShader;
+            case DEUTERANOMALY -> deuteranomalyShader;
+            case DEUTERANOPIA -> deuteranopiaShader;
+            case PROTANOMALY -> protanomalyShader;
+            case PROTANOPIA -> protanopiaShader;
+            case TRITANOMALY -> tritanomalyShader;
+            case TRITANOPIA -> tritanopiaShader;
+        };
+
+        try {
+            if (activeShader != null) {
+                activeShader.process(mc.gameRenderer.mainRenderTarget(), ALLOCATOR);
             }
+        } catch (IllegalStateException ex) {
+            Constants.LOG.warn("Colorblindness shader failed to render, skipping rendering this frame.", ex);
         }
     }
 

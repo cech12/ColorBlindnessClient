@@ -26,7 +26,7 @@ public class ForgeClientEvents {
         if (event == null) {
             return;
         }
-        EffectRendererHelper.renderColorBlindnessEffect(event.timer().getGameTimeDeltaTicks());
+        EffectRendererHelper.renderColorBlindnessEffect();
     }
 
     @SubscribeEvent
