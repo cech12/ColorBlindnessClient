@@ -1,9 +1,7 @@
 package de.cech12.colorblindnessclient.client;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import de.cech12.colorblindnessclient.Constants;
 import net.minecraft.client.KeyMapping;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Supplier;
 
@@ -39,8 +37,7 @@ public enum ColorEffect {
     public KeyMapping generateKeyMapping(KeyMapping.Category category) {
         return new KeyMapping(
                 this.getKeyTranslatable(),
-                InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_UNKNOWN,
+                0,
                 category
         );
     }
