@@ -25,8 +25,8 @@ jobs:
     uses: cech12/MinecraftModActions/.github/workflows/multi-publish-github.yml@main
     with:
       java-version: 21
-      mod-name: Copper Shears
-      mod-id: coppershears
+      mod-name: ColorBlindness Client
+      mod-id: colorblindnessclient
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
   publish-forge-on-curseforge:
